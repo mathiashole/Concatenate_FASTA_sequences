@@ -2,11 +2,11 @@ import sys
 import os
 #from datetime import datetime
 
-file_paths = sys.argv[1:]  # Obtener los nombres de archivo pasados como argumentos
+file_paths = sys.argv[1:]  # Get the filenames passed as arguments
 
-data = {}  # Diccionario para almacenar los datos de los archivos
+data = {}  # Dictionary to store file data
 
-# Leer los IDs y textos de los archivos
+# Read file IDs and texts
 for file_path in file_paths:
     with open(file_path, 'r') as file:
         lines = file.read().splitlines()
@@ -20,7 +20,7 @@ for file_path in file_paths:
         else:
             data[current_id] += line
 
-# Depuración: Imprimir los datos leídos
+# Debug: Print the data read
 #for file_path, file_data in data.items():
 #    print(f"{file_path}:")
 #    print(file_data)
@@ -32,27 +32,27 @@ for file_path, file_data in data.items():
 
 #print(resultados)
 
-# Crear la carpeta "concatResult" si no existe
+# Create "concatResult" folder if it doesn't exist
 output_folder = 'concatResult'
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)
 
 
-# Escribir los resultados en un nuevo archivo dentro de la carpeta "concatResult"
+# Write the results to a new file inside the "concatResult" folder
 output_file_path = os.path.join(output_folder, 'concatSeq.fasta')
 with open(output_file_path, 'w') as output_file:
     output_file.write(resultados)
 
-# Generar el nombre de archivo con fecha y hora actual
+# Generate file name with current date and time
 #current_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 #output_file_name = f'concatSeq_{current_datetime}.fasta'
 
-# Crear la ruta completa al archivo de salida
+# Create the full path to the output file
 #output_file_path = os.path.join(output_folder, output_file_name)
 
-# Escribir los resultados en el archivo de salida
+# Write the results to the output file
 #with open(output_file_path, 'w') as output_file:
 #    output_file.write(resultados)
 
 
-print(f"El resultado se ha guardado en el archivo {output_file_path}")
+print(f"The result has been saved to the file {output_file_path}")
