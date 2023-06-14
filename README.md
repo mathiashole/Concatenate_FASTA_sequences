@@ -1,6 +1,6 @@
 # Concatenate FASTA sequences 
 
-[![Python](https://img.shields.io/badge/Python-3.10+-yellow?style=for-the-badge&logo=python&logoColor=white&labelColor=101010)](https://python.org)
+[![Python](https://img.shields.io/badge/Python-3.10+-FDEE21?style=for-the-badge&logo=python&logoColor=white&labelColor=101010)](https://python.org)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mathiashole/Concatenate_FASTA_sequences?color=white&logo=GitHub&style=for-the-badge&logoColor=white&labelColor=101010)
 ![GitHub](https://img.shields.io/github/license/mathiashole/Concatenate_FASTA_sequences?color=%23179287&style=for-the-badge&logoColor=white&labelColor=101010)
 
