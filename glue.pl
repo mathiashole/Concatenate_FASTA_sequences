@@ -1,6 +1,15 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
+use Getopt::Long;
+
+# # define flag
+# my $output_flag = 0;
+
+# # name of flag
+# GetOptions(
+#     "output" => \$output_flag,
+# );
 
 # Verifica que se proporcionen al menos dos argumentos en la línea de comandos
 if (@ARGV < 2) {
