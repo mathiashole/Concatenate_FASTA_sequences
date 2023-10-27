@@ -80,8 +80,6 @@ Use: genomics concatenat sequece [OPTIONS]
     -help, --help     Show this help.
     -version, --version  Show the version of the program.
 
-    # Missing options
-
  Examples:
     glue.pl -help
     glue.pl -version
