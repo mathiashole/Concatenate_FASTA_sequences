@@ -70,3 +70,25 @@ foreach my $header (sort keys %secuencias_por_encabezado) {
 close $output_fh;
 
 print "La concatenación se ha completado en el archivo $output_file.\n";
+
+# Function to show help
+sub show_help {
+    print <<'HELP';
+Use: genomics concatenat sequece [OPTIONS]
+
+ Opciones disponibles:
+    -help, --help     Show this help.
+    -version, --version  Show the version of the program.
+
+    # Missing options
+
+ Examples:
+    glue.pl -help
+    glue.pl -version
+HELP
+}
+
+# Function to show the version of the program
+sub show_version {
+    print "genomics concate sequence v0.0.1\n";
+}
