@@ -15,10 +15,14 @@ GetOptions(
 "version" => \$version_flag,
 );
 
-# Verifica que se proporcionen al menos dos argumentos en la línea de comandos
-if (@ARGV < 2) {
-    die "Uso: $0 archivo1.fasta archivo2.fasta [archivo3.fasta ...] archivo_concatenado.fasta\n";
-}
+# Handling command line arguments
+if (scalar(@ARGV) == 0) {
+    show_help();
+} elsif ($help_flag) {
+    show_help();
+} elsif ($version_flag) {
+    show_version();
+} else {
 
 # Último argumento de la línea de comandos es el nombre del archivo concatenado
 my $output_file = pop @ARGV;
@@ -74,6 +78,7 @@ foreach my $header (sort keys %secuencias_por_encabezado) {
 close $output_fh;
 
 print "La concatenación se ha completado en el archivo $output_file.\n";
+}
 
 # Function to show help
 sub show_help {
