@@ -21,7 +21,7 @@ GetOptions(
 # }
 
 # Handling command line arguments
-if (scalar(@ARGV) == 0) {
+if (scalar(@ARGV) == 0 || scalar(@ARGV) == 1) {
     show_help();
 } elsif ($help_flag) {
     show_help();
