@@ -15,6 +15,11 @@ GetOptions(
 "version" => \$version_flag,
 );
 
+# Verifica que se proporcionen al menos dos argumentos en la línea de comandos
+# if (@ARGV < 2) {
+#     die "Uso: $0 archivo1.fasta archivo2.fasta [archivo3.fasta ...] archivo_concatenado.fasta\n";
+# }
+
 # Handling command line arguments
 if (scalar(@ARGV) == 0) {
     show_help();
@@ -49,7 +54,7 @@ foreach my $input_file (@ARGV) {
             # Es un encabezado
             if ($current_header) {
                 # Si hay una secuencia anterior, la concatena y la almacena
-                $current_header =~ s/\s.*//; # Elimina cualquier texto después del primer espacio
+                #$current_header =~ s/\s.*//; # Elimina cualquier texto después del primer espacio
                 $secuencias_por_encabezado{$current_header} .= $current_sequence;
             }
 
