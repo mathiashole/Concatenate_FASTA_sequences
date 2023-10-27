@@ -5,11 +5,15 @@ use Getopt::Long;
 
 # # define flag
 # my $output_flag = 0;
+my $help_flag = 0;
+my $version_flag = 0;
 
-# # name of flag
-# GetOptions(
-#     "output" => \$output_flag,
-# );
+# name of flag
+GetOptions(
+#    "output" => \$output_flag,
+"help" => \$help_flag,
+"version" => \$version_flag,
+);
 
 # Verifica que se proporcionen al menos dos argumentos en la línea de comandos
 if (@ARGV < 2) {
