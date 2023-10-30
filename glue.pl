@@ -5,8 +5,7 @@ use Getopt::Long;
 
 # # define flag
 # my $output_flag = 0;
-my $help_flag = 0;
-my $version_flag = 0;
+my ($help_flag = 0, $version_flag = 0);
 
 # name of flag
 GetOptions(
@@ -21,13 +20,17 @@ GetOptions(
 # }
 
 # Handling command line arguments
-if (scalar(@ARGV) == 0 || scalar(@ARGV) == 1) {
+if ($help_flag) {
     show_help();
-} elsif ($help_flag) {
-    show_help();
+    exit;
 } elsif ($version_flag) {
     show_version();
-} else {
+    exit;
+}
+
+if (scalar(@ARGV) < 2) {
+    die "Uso: $0 archivo1.fasta archivo2.fasta [archivo3.fasta ...] archivo_concatenado.fasta\n";
+}
 
 # Último argumento de la línea de comandos es el nombre del archivo concatenado
 my $output_file = pop @ARGV;
@@ -95,7 +98,6 @@ foreach my $header (sort keys %header_count) {
 close $count_fh;
 print "La concatenación se ha completado en el archivo $output_file.\n";
 
-}
 
 # Function to show help
 sub show_help {
