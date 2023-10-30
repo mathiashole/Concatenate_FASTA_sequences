@@ -40,6 +40,7 @@ my $current_sequence = "";
 
 # Hash para almacenar las secuencias por encabezado
 my %secuencias_por_encabezado;
+my %header_count;  # Inicializa el contador
 
 # Itera a través de los nombres de archivo proporcionados en la línea de comandos
 foreach my $input_file (@ARGV) {
@@ -52,6 +53,7 @@ foreach my $input_file (@ARGV) {
 
         if ($line =~ /^>/) {
             # Es un encabezado
+            $header_count{$line}++;
             if ($current_header) {
                 # Si hay una secuencia anterior, la concatena y la almacena
                 #$current_header =~ s/\s.*//; # Elimina cualquier texto después del primer espacio
@@ -82,7 +84,17 @@ foreach my $header (sort keys %secuencias_por_encabezado) {
 # Cierra el archivo de salida
 close $output_fh;
 
+# Abre un nuevo archivo de texto para el conteo
+# open my $count_fh, '>', 'conteo.txt' or die "No se pudo abrir el archivo de conteo: $!";
+# print $count_fh "Número de encabezados: $header_count\n";
+# close $count_fh;
+open my $count_fh, '>', 'conteo.txt' or die "No se pudo abrir el archivo de conteo: $!";
+foreach my $header (sort keys %header_count) {
+    print $count_fh "$header\t$header_count{$header}\n";  # Formato "header (tab) número (newline)"
+}
+close $count_fh;
 print "La concatenación se ha completado en el archivo $output_file.\n";
+
 }
 
 # Function to show help
