@@ -5,7 +5,8 @@ use Getopt::Long;
 
 # # define flag
 # my $output_flag = 0;
-my ($help_flag = 0, $version_flag = 0);
+my $help_flag = 0;
+my $version_flag = 0;
 
 # name of flag
 GetOptions(
@@ -32,7 +33,11 @@ if (scalar(@ARGV) < 2) {
     die "Uso: $0 archivo1.fasta archivo2.fasta [archivo3.fasta ...] archivo_concatenado.fasta\n";
 }
 
-# Último argumento de la línea de comandos es el nombre del archivo concatenado
+# my ($secuencias_por_encabezado, $header_count) = leer_secuencias(@ARGV);
+# concatenar_secuencias($secuencias_por_encabezado, "concatenado.fasta");
+# crear_archivo_de_conteo($header_count, "conteo.txt");
+
+#Último argumento de la línea de comandos es el nombre del archivo concatenado
 my $output_file = pop @ARGV;
 
 # Abre el archivo de salida
@@ -118,3 +123,63 @@ HELP
 sub show_version {
     print "genomics concate sequence v0.0.1\n";
 }
+
+# sub leer_secuencias {
+#     my @archivos = @_;
+
+#     my %secuencias_por_encabezado;
+#     my %header_count;
+
+#     foreach my $archivo (@archivos) {
+#         open my $fh, '<', $archivo or die "No se pudo abrir el archivo $archivo: $!";
+
+#         my $current_header = "";
+#         my $current_sequence = "";
+
+#         while (my $line = <$fh>) {
+#             chomp $line;
+
+#             if ($line =~ /^>/) {
+#                 $header_count{$line}++;
+#                 if ($current_header) {
+#                     $secuencias_por_encabezado{$current_header} .= $current_sequence;
+#                 }
+
+#                 $current_header = $line;
+#                 $current_sequence = "";
+#             } else {
+#                 $current_sequence .= $line;
+#             }
+#         }
+
+#         $secuencias_por_encabezado{$current_header} .= $current_sequence;
+
+#         close $fh;
+#     }
+
+#     return (\%secuencias_por_encabezado, \%header_count);
+# }
+
+# sub concatenar_secuencias {
+#     my ($secuencias, $archivo_salida) = @_;
+
+#     open my $output_fh, '>', $archivo_salida or die "No se pudo abrir el archivo de salida $archivo_salida: $!";
+
+#     foreach my $header (sort keys %$secuencias) {
+#         print $output_fh "$header\n$secuencias->{$header}\n";
+#     }
+
+#     close $output_fh;
+# }
+
+# sub crear_archivo_de_conteo {
+#     my ($conteo, $nombre_archivo) = @_;
+
+#     open my $count_fh, '>', $nombre_archivo or die "No se pudo abrir el archivo de conteo: $!";
+#     foreach my $header (sort keys %$conteo) {
+#         print $count_fh "$header\t$conteo->{$header}\n";
+#     }
+#     close $count_fh;
+# }
+
+
