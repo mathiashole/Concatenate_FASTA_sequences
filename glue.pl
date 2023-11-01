@@ -25,32 +25,32 @@ if ($help_flag) {
 }
 
 if (scalar(@ARGV) < 2) {
-    die "Uso: $0 archivo1.fasta archivo2.fasta [archivo3.fasta ...] archivo_concatenado.fasta\n";
+    die "Uso: $0 file1.fasta file2.fasta [file3.fasta ...] file_concatenado.fasta\n";
 }
 
-# my ($secuencias_por_encabezado, $header_count) = leer_secuencias(@ARGV);
-# concatenar_secuencias($secuencias_por_encabezado, "concatenado.fasta");
-# crear_archivo_de_conteo($header_count, "conteo.txt");
+# my ($sequence_by_header, $header_count) = read_sequence(@ARGV);
+# concatenar_secuencias($sequence_by_header, "concatenado.fasta");
+# crear_file_de_conteo($header_count, "conteo.txt");
 
-#Último argumento de la línea de comandos es el nombre del archivo concatenado
+#Último argumento de la línea de comandos es el nombre del file concatenado
 my $output_file = pop @ARGV;
 
-# Abre el archivo de salida
-open my $output_fh, '>', $output_file or die "No se pudo abrir el archivo de salida $output_file: $!";
+# Abre el file de salida
+open my $output_fh, '>', $output_file or die "No se pudo abrir el file de salida $output_file: $!";
 
 my $current_header = "";
 my $current_sequence = "";
 
 # Hash para almacenar las secuencias por encabezado
-my %secuencias_por_encabezado;
+my %sequence_by_header;
 my %header_count;  # Inicializa el contador
 
-# Itera a través de los nombres de archivo proporcionados en la línea de comandos
+# Itera a través de los nombres de file proporcionados en la línea de comandos
 foreach my $input_file (@ARGV) {
-    # Abre el archivo de entrada
-    open my $fh, '<', $input_file or die "No se pudo abrir el archivo $input_file: $!";
+    # Abre el file de entrada
+    open my $fh, '<', $input_file or die "No se pudo abrir el file $input_file: $!";
 
-    # Procesa las líneas del archivo de entrada
+    # Procesa las líneas del file de entrada
     while (my $line = <$fh>) {
         chomp $line;
 
@@ -60,7 +60,7 @@ foreach my $input_file (@ARGV) {
             if ($current_header) {
                 # Si hay una secuencia anterior, la concatena y la almacena
                 #$current_header =~ s/\s.*//; # Elimina cualquier texto después del primer espacio
-                $secuencias_por_encabezado{$current_header} .= $current_sequence;
+                $sequence_by_header{$current_header} .= $current_sequence;
             }
 
             # Inicializa el encabezado y la secuencia actual
@@ -73,30 +73,30 @@ foreach my $input_file (@ARGV) {
     }
 
     # Almacena la última secuencia
-    $secuencias_por_encabezado{$current_header} .= $current_sequence;
+    $sequence_by_header{$current_header} .= $current_sequence;
 
-    # Cierra el archivo de entrada
+    # Cierra el file de entrada
     close $fh;
 }
 
 # Write the concatenated sequences to the output file
-foreach my $header (sort keys %secuencias_por_encabezado) {
-    print $output_fh "$header\n$secuencias_por_encabezado{$header}\n";
+foreach my $header (sort keys %sequence_by_header) {
+    print $output_fh "$header\n$sequence_by_header{$header}\n";
 }
 
 # Close the output file
 close $output_fh;
 
-# Abre un nuevo archivo de texto para el conteo
-# open my $count_fh, '>', 'conteo.txt' or die "No se pudo abrir el archivo de conteo: $!";
+# Abre un nuevo file de texto para el conteo
+# open my $count_fh, '>', 'conteo.txt' or die "No se pudo abrir el file de conteo: $!";
 # print $count_fh "Número de encabezados: $header_count\n";
 # close $count_fh;
-open my $count_fh, '>', 'conteo.txt' or die "No se pudo abrir el archivo de conteo: $!";
+open my $count_fh, '>', 'conteo.txt' or die "No se pudo abrir el file de conteo: $!";
 foreach my $header (sort keys %header_count) {
     print $count_fh "$header\t$header_count{$header}\n";  # Formato "header (tab) número (newline)"
 }
 close $count_fh;
-print "La concatenación se ha completado en el archivo $output_file.\n";
+print "La concatenación se ha completado en el file $output_file.\n";
 
 
 # Function to show help
@@ -119,14 +119,14 @@ sub show_version {
     print "genomics concate sequence v0.0.1\n";
 }
 
-# sub leer_secuencias {
-#     my @archivos = @_;
+# sub read_sequence {
+#     my @files = @_;
 
-#     my %secuencias_por_encabezado;
+#     my %sequence_by_header;
 #     my %header_count;
 
-#     foreach my $archivo (@archivos) {
-#         open my $fh, '<', $archivo or die "No se pudo abrir el archivo $archivo: $!";
+#     foreach my $file (@files) {
+#         open my $fh, '<', $file or die "No se pudo abrir el file $file: $!";
 
 #         my $current_header = "";
 #         my $current_sequence = "";
@@ -137,7 +137,7 @@ sub show_version {
 #             if ($line =~ /^>/) {
 #                 $header_count{$line}++;
 #                 if ($current_header) {
-#                     $secuencias_por_encabezado{$current_header} .= $current_sequence;
+#                     $sequence_by_header{$current_header} .= $current_sequence;
 #                 }
 
 #                 $current_header = $line;
@@ -147,18 +147,18 @@ sub show_version {
 #             }
 #         }
 
-#         $secuencias_por_encabezado{$current_header} .= $current_sequence;
+#         $sequence_by_header{$current_header} .= $current_sequence;
 
 #         close $fh;
 #     }
 
-#     return (\%secuencias_por_encabezado, \%header_count);
+#     return (\%sequence_by_header, \%header_count);
 # }
 
 # sub concatenar_secuencias {
-#     my ($secuencias, $archivo_salida) = @_;
+#     my ($secuencias, $file_salida) = @_;
 
-#     open my $output_fh, '>', $archivo_salida or die "No se pudo abrir el archivo de salida $archivo_salida: $!";
+#     open my $output_fh, '>', $file_salida or die "No se pudo abrir el file de salida $file_salida: $!";
 
 #     foreach my $header (sort keys %$secuencias) {
 #         print $output_fh "$header\n$secuencias->{$header}\n";
@@ -167,10 +167,10 @@ sub show_version {
 #     close $output_fh;
 # }
 
-# sub crear_archivo_de_conteo {
-#     my ($conteo, $nombre_archivo) = @_;
+# sub crear_file_de_conteo {
+#     my ($conteo, $nombre_file) = @_;
 
-#     open my $count_fh, '>', $nombre_archivo or die "No se pudo abrir el archivo de conteo: $!";
+#     open my $count_fh, '>', $nombre_file or die "No se pudo abrir el file de conteo: $!";
 #     foreach my $header (sort keys %$conteo) {
 #         print $count_fh "$header\t$conteo->{$header}\n";
 #     }
