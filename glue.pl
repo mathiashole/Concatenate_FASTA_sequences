@@ -15,11 +15,6 @@ GetOptions(
 "version" => \$version_flag,
 );
 
-# Verifica que se proporcionen al menos dos argumentos en la línea de comandos
-# if (@ARGV < 2) {
-#     die "Uso: $0 archivo1.fasta archivo2.fasta [archivo3.fasta ...] archivo_concatenado.fasta\n";
-# }
-
 # Handling command line arguments
 if ($help_flag) {
     show_help();
@@ -89,7 +84,7 @@ foreach my $header (sort keys %secuencias_por_encabezado) {
     print $output_fh "$header\n$secuencias_por_encabezado{$header}\n";
 }
 
-# Cierra el archivo de salida
+# Close the output file
 close $output_fh;
 
 # Abre un nuevo archivo de texto para el conteo
