@@ -79,7 +79,7 @@ foreach my $input_file (@ARGV) {
     close $fh;
 }
 
-# Escribe las secuencias concatenadas en el archivo de salida
+# Write the concatenated sequences to the output file
 foreach my $header (sort keys %secuencias_por_encabezado) {
     print $output_fh "$header\n$secuencias_por_encabezado{$header}\n";
 }
