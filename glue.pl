@@ -32,10 +32,10 @@ if (scalar(@ARGV) < 2) {
 # concatenar_secuencias($sequence_by_header, "concatenado.fasta");
 # crear_file_de_conteo($header_count, "conteo.txt");
 
-#Último argumento de la línea de comandos es el nombre del file concatenado
+#Last command line argument is the name of the concatenated file
 my $output_file = pop @ARGV;
 
-# Abre el file de salida
+# Open the output file
 open my $output_fh, '>', $output_file or die "No se pudo abrir el file de salida $output_file: $!";
 
 my $current_header = "";
