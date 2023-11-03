@@ -60,6 +60,8 @@ foreach my $input_file (@ARGV) {
             if ($current_header) {
                 # Si hay una secuencia anterior, la concatena y la almacena
                 #$current_header =~ s/\s.*//; # Elimina cualquier texto después del primer espacio
+                print "Encabezado actual: $current_header\n";
+                print "Secuencia actual: $current_sequence\n\n";
                 $sequence_by_header{$current_header} .= $current_sequence;
             }
 
@@ -77,6 +79,12 @@ foreach my $input_file (@ARGV) {
 
     # Cierra el file de entrada
     close $fh;
+}
+
+# Agregar un print para ver los encabezados y las secuencias almacenadas
+foreach my $header (sort keys %sequence_by_header) {
+    print "Encabezado: $header\n";
+    print "Secuencia: $sequence_by_header{$header}\n";
 }
 
 # Write the concatenated sequences to the output file
