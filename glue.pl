@@ -49,7 +49,7 @@ my %header_count;  # Inicializa el contador
 foreach my $input_file (@ARGV) {
     # Abre el file de entrada
     open my $fh, '<', $input_file or die "No se pudo abrir el file $input_file: $!";
-
+    print "file: $input_file\n\n";
     # Procesa las líneas del file de entrada
     while (my $line = <$fh>) {
         chomp $line;
