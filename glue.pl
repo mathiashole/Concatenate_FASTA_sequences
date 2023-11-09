@@ -69,9 +69,7 @@ foreach my $input_file (@ARGV) {
             # Inicializa el encabezado y la secuencia actual
             $current_header = $line;
             $current_sequence = "";
-            print "LOG : $line\n";
         } else {
-            print "INIT : $line\n";
             # Es una línea de secuencia, la concatena
             $current_sequence .= $line;
         }
@@ -79,16 +77,15 @@ foreach my $input_file (@ARGV) {
 
     # Almacena la última secuencia
     $sequence_by_header{$current_header} .= $current_sequence;
-    print "$sequence_by_header{$current_header}\n";
     # Cierra el file de entrada
     close $fh;
 }
 
-# # Agregar un print para ver los encabezados y las secuencias almacenadas
-# foreach my $header (sort keys %sequence_by_header) {
-#     print "Encabezado: $header\n";
-#     print "Secuencia: $sequence_by_header{$header}\n";
-# }
+# Agregar un print para ver los encabezados y las secuencias almacenadas
+foreach my $header (sort keys %sequence_by_header) {
+    print "Encabezado: $header\n";
+    print "Secuencia: $sequence_by_header{$header}\n";
+}
 
 # Write the concatenated sequences to the output file
 foreach my $header (sort keys %sequence_by_header) {
