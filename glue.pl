@@ -61,8 +61,6 @@ foreach my $input_file (@ARGV) {
             if ($current_header) {
                 # Si hay una secuencia anterior, la concatena y la almacena
                 #$current_header =~ s/\s.*//; # Elimina cualquier texto después del primer espacio
-                #print "Encabezado actual: $current_header\n";
-                #print "Secuencia actual: $current_sequence\n\n";
                 $sequence_by_header{$current_header} .= $current_sequence;
             }
 
